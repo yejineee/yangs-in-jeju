@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^8.19.5",
     "@react-three/fiber": "^7.0.26",
     "dat.gui": "^0.7.9",
     "face-api.js": "^0.22.2",

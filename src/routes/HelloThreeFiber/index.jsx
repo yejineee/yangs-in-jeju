@@ -1,15 +1,16 @@
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useRef, useState, forwardRef } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import * as THREE from 'three';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, useHelper } from '@react-three/drei';
 
-const Plane = forwardRef((props, ref) => {
+const Plane = (props) => {
   return (
-    <mesh {...props} ref={ref} receiveShadow={true} castShadow={false}>
+    <mesh {...props} receiveShadow={true} castShadow={false}>
       <planeGeometry args={[160, 160]} />
       <meshLambertMaterial />
     </mesh>
   );
-});
+};
 
 const Box = (props) => {
   const ref = useRef();
@@ -39,24 +40,30 @@ const Box = (props) => {
   );
 };
 
+const Light = () => {
+  const lightRef = useRef();
+
+  useHelper(lightRef, THREE.DirectionalLightHelper, 1);
+
+  useEffect(() => {
+    const { camera: shadowCamera } = lightRef.current.shadow;
+    shadowCamera.left = -30;
+    shadowCamera.right = 30;
+    shadowCamera.top = 30;
+    shadowCamera.bottom = -30;
+  }, []);
+
+  return <directionalLight ref={lightRef} position={[20, 40, 0]} castShadow={true} />;
+};
+
 const HelloThreeFiber = () => {
-  const shadowCamera = new THREE.OrthographicCamera(-100, 100, 100, -100, 0.5, 1000);
-  shadowCamera.lookAt(0, 0, 0);
-
-  const planeRef = useRef();
-
   return (
     <Canvas camera={{ fov: 50, near: 0.1, far: 1000, position: [20, 80, 140] }} shadows={true}>
-      <directionalLight
-        target={planeRef.current}
-        shadow={{ camera: shadowCamera }}
-        position={[20, 40, 0]}
-        color={0xff0000}
-        castShadow={true}
-      />
+      <Light />
       <Box position={[-12, 0, 0]} />
       <Box position={[12, 0, 0]} />
-      <Plane ref={planeRef} position={[0, -10, 0]} rotation={[-Math.PI / 2, 0, 0]} />
+      <Plane position={[0, -24, 0]} rotation={[-Math.PI / 2, 0, 0]} />
+      <OrbitControls />
     </Canvas>
   );
 };
