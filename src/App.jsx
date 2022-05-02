@@ -4,7 +4,6 @@ import { Routes, Route, Link } from 'react-router-dom';
 import HelloThreePlain from './routes/HelloThreePlain';
 import HelloThreeFiber from './routes/HelloThreeFiber';
 import HumbleButtonDemo from './routes/HumbleButton';
-import FaceApiTest from './routes/FaceApiTest';
 
 const NavExamples = () => (
   <nav>
@@ -18,9 +17,6 @@ const NavExamples = () => (
       <li>
         <Link to="/humble-button">Humble Button</Link>
       </li>
-      <li>
-        <Link to="/face-api-test">Face API Test</Link>
-      </li>
     </ul>
   </nav>
 );
@@ -31,14 +27,6 @@ const App = () => (
     <Route path="/hello-three-fiber" element={<HelloThreeFiber />} />
     <Route path="/hello-three-plain" element={<HelloThreePlain />} />
     <Route path="/humble-button" element={<HumbleButtonDemo />} />
-    <Route
-      path="/face-api-test"
-      element={
-        <React.Suspense fallback={<>...</>}>
-          <FaceApiTest />
-        </React.Suspense>
-      }
-    />
   </Routes>
 );
 
