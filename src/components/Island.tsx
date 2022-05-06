@@ -1,5 +1,5 @@
 import Floor from './Floor';
-import Rock from './Rock';
+import Rock from './Rock/Rock';
 
 const Island = () => {
   return (

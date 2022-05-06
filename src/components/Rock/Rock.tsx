@@ -1,16 +1,5 @@
-import {FLOOR_SIZE} from './Floor';
-
-const BaseRock = ({radius, position, color = '#808285'}) => {
-
-  const [x, y, z] = position;
-
-  return (
-    <mesh position={[x, y-radius, z]} >
-      <dodecahedronGeometry args={[radius]}  />
-      <meshBasicMaterial color={color} />
-    </mesh>
-  );
-};
+import BaseRock from './BaseRock';
+import {FLOOR_SIZE} from '../Floor';
 
 const X = 0;
 const Z = 2;
