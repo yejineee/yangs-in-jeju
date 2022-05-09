@@ -1,7 +1,7 @@
-
+import { CylinderGeometry } from 'three';
 interface BaseMountainProps {
   position: number[];
-  args: [radiusTop?: number, radiusBottom?: number, height?: number, radialSegments?: number, heightSegments?: number, openEnded?: boolean, thetaStart?: number, thetaLength?: number];
+  args: ConstructorParameters<typeof CylinderGeometry>;
   color: string;
 }
 
