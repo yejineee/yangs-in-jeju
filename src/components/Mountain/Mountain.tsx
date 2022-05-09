@@ -1,21 +1,4 @@
-import { useEffect, createRef, forwardRef } from 'react';
-import * as dat from 'dat.gui';
-let controls;
-
-interface BaseMountainProps {
-  position: number[];
-  args: [radiusTop?: number, radiusBottom?: number, height?: number, radialSegments?: number, heightSegments?: number, openEnded?: boolean, thetaStart?: number, thetaLength?: number];
-  color: string;
-}
-
-const BaseMountain = forwardRef((props: BaseMountainProps, ref) => {
-  return (
-    <mesh position={props.position} ref={ref}>
-      <cylinderGeometry args={props.args} />
-      <meshBasicMaterial color={props.color} />
-    </mesh>
-  );
-});
+import BaseMountain from './BaseMountain';
 
 enum Args {
   RadiusTop,
@@ -62,37 +45,15 @@ const topMountain = {
   },
 };
 
-const cleanup = () => {
-  controls.destroy();
-};
-
 const Mountain = () => {
-  const greenMountainRef = createRef();
-  const topMountainRef = createRef();
-
-  useEffect(() => {
-    controls = new dat.GUI();
-    const BottomMountainFolder = controls.addFolder('Bottom Mountain');
-    BottomMountainFolder.add(greenMountainRef.current.position, 'y', 0, 20, 1);
-    BottomMountainFolder.open();
-
-    const topMountainFolder = controls.addFolder('Top Mountain');
-    topMountainFolder.add(topMountainRef.current.position, 'y', 0, 20, 1);
-    topMountainFolder.open();
-
-    return cleanup;
-  }, []);
-
   return (
     <>
       <BaseMountain
-        ref={topMountainRef}
         position={topMountain.getPosition()}
         args={topMountain.getArgs()}
         color={'#6c6d6e'}
       />
       <BaseMountain
-        ref={greenMountainRef}
         position={bottomMountain.getPosition()}
         args={bottomMountain.getArgs()}
         color={'#68a95e'}
