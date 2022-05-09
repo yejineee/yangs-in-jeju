@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 
 import HelloThreePlain from './routes/HelloThreePlain';

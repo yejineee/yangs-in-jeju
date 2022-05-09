@@ -13,3 +13,7 @@ code {
 #root {
   height: 100vh;
 }
+
+body {
+  background-color: #ecf8fe;
+}
