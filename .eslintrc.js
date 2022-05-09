@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
   },
   extends: [
     'plugin:react/recommended',
@@ -10,17 +10,30 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
     ecmaVersion: 12,
-    sourceType: 'module'
+    sourceType: 'module',
   },
   plugins: [
     'react',
     '@typescript-eslint'
   ],
   rules: {
+    // Plain JS
+    semi: ['error', 'always'],
+    'comma-dangle': ['error', {
+      arrays: 'never',
+      objects: 'always',
+    }],
+    // React
     'react/react-in-jsx-scope': 'off',
-    semi: ['error', 'always']
-  }
+    'react/prop-types': 'off',
+    'react/display-name': 'off',
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
 };
