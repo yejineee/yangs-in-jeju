@@ -1,4 +1,5 @@
 import BaseMountain from './BaseMountain';
+import Lake from './Lake';
 
 enum Args {
   RadiusTop,
@@ -45,9 +46,30 @@ const topMountain = {
   },
 };
 
+const lake = {
+  _args: {
+    radius: topMountain.getArgs()[Args.RadiusTop],
+  },
+  getArgs () {
+    return Object.values(this._args);
+  },
+  getPosition () {
+    const pos = {
+      x: 0,
+      y: topMountain.getArgs()[Args.Height] + bottomMountain.getArgs()[Args.Height] + 0.1, // TODO: 0.1 뺐을 때 현상 알아보기
+      z: 0,
+    };
+    return Object.values<number>(pos);
+  },
+};
+
 const Mountain = () => {
   return (
     <>
+      <Lake
+        position={lake.getPosition()}
+        args={lake.getArgs()}
+      />
       <BaseMountain
         position={topMountain.getPosition()}
         args={topMountain.getArgs()}
