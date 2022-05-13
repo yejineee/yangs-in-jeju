@@ -1,6 +1,5 @@
-import { Fragment } from 'react/cjs/react.production.min';
 import { DoubleSide, PlaneGeometry } from 'three';
-
+import { getCirclePosArray } from '../../utils/geometry';
 interface BasePhotoProps {
   position: number[]
   args: ConstructorParameters<typeof PlaneGeometry>
@@ -16,29 +15,7 @@ const BasePhoto = (props: BasePhotoProps) => {
   );
 };
 
-const degreeToRadian = (degree: number) => degree * Math.PI * (1 / 180);
-
-const calcCirclePosition = ({ degree, radius, }: {degree: number, radius : number}) => {
-  const radian = degreeToRadian(degree);
-  const x = radius * Math.cos(radian);
-  const y = radius * Math.sin(radian);
-
-  return [x, y];
-};
-
-const getCirclePosArray = ({ count, }: {count: number}): ReturnType<typeof calcCirclePosition>[] => {
-  const baseDegree = 360 / count;
-  const radius = 100;
-  const arr = [];
-
-  for (let i = 0; i < count; i++) {
-    arr.push(calcCirclePosition({ degree: baseDegree * i, radius, }));
-  }
-
-  return arr;
-};
-
-const circlePosArray = getCirclePosArray({ count: 12, });
+const circlePosArray = getCirclePosArray({ count: 12, radius: 60, });
 
 const Photo = () => {
   return (
