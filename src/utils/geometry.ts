@@ -10,11 +10,8 @@ const calcCirclePosition = ({ degree, radius, }: {degree: number, radius : numbe
 
 export const getCirclePosArray = ({ count, radius, }: {count: number, radius: number}): ReturnType<typeof calcCirclePosition>[] => {
   const baseDegree = 360 / count;
-  const arr = [];
 
-  for (let i = 0; i < count; i++) {
-    arr.push(calcCirclePosition({ degree: baseDegree * i, radius, }));
-  }
-
-  return arr;
+  return new Array(count).fill(null).reduce((prevPosArr, _, i) => {
+    return [...prevPosArr, calcCirclePosition({ degree: baseDegree * i, radius, })];
+  }, []);
 };
