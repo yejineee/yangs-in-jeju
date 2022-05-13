@@ -1,19 +1,5 @@
-import { DoubleSide, PlaneGeometry } from 'three';
 import { getCirclePosArray } from '../../utils/geometry';
-interface BasePhotoProps {
-  position: number[]
-  args: ConstructorParameters<typeof PlaneGeometry>
-  color?: string;
-}
-
-const BasePhoto = (props: BasePhotoProps) => {
-  return (
-    <mesh position={props.position} >
-      <planeGeometry args={props.args} />
-      <meshBasicMaterial color={props.color || '#dce160'} side={DoubleSide} />
-    </mesh>
-  );
-};
+import BasePhoto from './BasePhoto';
 
 const circlePosArray = getCirclePosArray({ count: 12, radius: 60, });
 
@@ -28,7 +14,6 @@ const Photo = () => {
           />
       )}
     </>
-
   );
 };
 
