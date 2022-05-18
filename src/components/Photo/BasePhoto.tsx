@@ -1,8 +1,8 @@
 import { DoubleSide, PlaneGeometry } from 'three';
 
 interface BasePhotoProps {
-  position: number[]
-  args: ConstructorParameters<typeof PlaneGeometry>
+  position: [number, number, number];
+  args: ConstructorParameters<typeof PlaneGeometry>;
   color?: string;
 }
 

@@ -6,7 +6,7 @@ import Mountain from '../../components/Mountain/Mountain';
 import Photo from '../../components/Photo/Photo';
 import Light from '../../systems/Light';
 
-const cameraOption = { fov: 50, near: 0.1, far: 1000, position: [30, 30, 30], };
+const cameraOption = { fov: 100, near: 0.1, far: 1000, position: [30, 30, 30], };
 
 const JejuAlbum = () => {
   return (
