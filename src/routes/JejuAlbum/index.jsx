@@ -10,13 +10,13 @@ const cameraOption = { fov: 100, near: 0.1, far: 1000, position: [30, 30, 30], }
 
 const JejuAlbum = () => {
   return (
-    <Canvas camera={cameraOption} shadows={true}>
+    <Canvas camera={cameraOption}>
       <Island />
       <Mountain />
       <Photo />
       <primitive object={new THREE.AxesHelper(100)} />
       <Light />
-      <OrbitControls />
+      {/* <OrbitControls /> */}
     </Canvas>
   );
 };
