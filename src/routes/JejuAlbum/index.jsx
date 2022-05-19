@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import * as THREE from 'three';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
@@ -11,12 +12,14 @@ const cameraOption = { fov: 100, near: 0.1, far: 1000, position: [30, 30, 30], }
 const JejuAlbum = () => {
   return (
     <Canvas camera={cameraOption}>
-      <Island />
-      <Mountain />
-      <Photo />
-      <primitive object={new THREE.AxesHelper(100)} />
-      <Light />
-      {/* <OrbitControls /> */}
+      <Suspense fallback={null}>
+        <Island />
+        <Mountain />
+        <Photo />
+        <primitive object={new THREE.AxesHelper(100)} />
+        <Light />
+        {/* <OrbitControls /> */}
+      </Suspense>
     </Canvas>
   );
 };
