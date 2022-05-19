@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
-import { DoubleSide, PlaneGeometry, Vector3 } from 'three';
-import { useThree, useFrame } from '@react-three/fiber';
+import { DoubleSide, PlaneGeometry, Vector3, TextureLoader } from 'three';
+import { useThree, useFrame, useLoader } from '@react-three/fiber';
+
 type Position = [number, number, number]
 
 interface BasePhotoProps {
@@ -10,6 +11,8 @@ interface BasePhotoProps {
 }
 
 const DISTANCE_FROM_PHOTO = 8;
+
+const WIREFRAME = 1;
 
 const BasePhoto = ({ position, args, color, }: BasePhotoProps) => {
   const state = useThree();
@@ -23,11 +26,19 @@ const BasePhoto = ({ position, args, color, }: BasePhotoProps) => {
     }
   });
 
+  const colorMap = useLoader(TextureLoader, 'cs.png');
+
   return (
-    <mesh ref={ref} position={position} onClick={() => setClicked((prev) => !prev)}>
-      <planeGeometry args={args} />
-      <meshBasicMaterial color={color || '#dce160'} side={DoubleSide} />
-    </mesh>
+    <>
+      <mesh position={[...position.slice(0, 2), position[2] - 0.1]}>
+        <planeBufferGeometry attach='geometry' args={[args[0] + WIREFRAME, args[1] + WIREFRAME]} />
+        <meshBasicMaterial color={'#dde4e7'} side={DoubleSide} />
+      </mesh>
+      <mesh ref={ref} position={position} onClick={() => setClicked((prev) => !prev)}>
+        <planeBufferGeometry attach='geometry' args={args} />
+        <meshBasicMaterial attach="material" map={colorMap} />
+      </mesh>
+    </>
   );
 };
 
