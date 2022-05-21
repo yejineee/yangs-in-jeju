@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { DoubleSide, PlaneGeometry, TextureLoader } from 'three';
 import { useLoader } from '@react-three/fiber';
 
@@ -13,8 +12,6 @@ interface BasePhotoProps {
 const WIREFRAME = 1;
 
 const BasePhoto = ({ position, args, onClick, }: BasePhotoProps) => {
-  const ref = useRef();
-
   const colorMap = useLoader(TextureLoader, 'cs.png');
 
   return (
@@ -23,7 +20,7 @@ const BasePhoto = ({ position, args, onClick, }: BasePhotoProps) => {
         <planeBufferGeometry attach='geometry' args={[args[0] + WIREFRAME, args[1] + WIREFRAME]} />
         <meshBasicMaterial color={'#dde4e7'} side={DoubleSide} />
       </mesh>
-      <mesh ref={ref} position={position} onClick={() => onClick(position)}>
+      <mesh position={position} onClick={() => onClick(position)}>
         <planeBufferGeometry attach='geometry' args={args} />
         <meshBasicMaterial attach="material" map={colorMap} />
       </mesh>
