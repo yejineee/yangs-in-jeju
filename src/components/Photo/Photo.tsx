@@ -29,12 +29,6 @@ const Photo = () => {
     state.camera.lookAt(...curPhoto.position);
   };
 
-  useFrame(() => {
-    if (mode === MODE.PHOTO) {
-      moveCamera();
-    }
-  });
-
   const onClickPhoto = (position, index) => {
     setMode(!mode);
     setCurPhoto({ position, index, });
@@ -43,10 +37,15 @@ const Photo = () => {
   const onClickArrowKey = () => {
     const nextIndex = getNextPosIndex(curPhoto.index);
     setCurPhoto({ position: circlePosArray[nextIndex], index: nextIndex, });
-    moveCamera();
   };
 
   const isPhotoMode = () => mode === MODE.PHOTO;
+
+  useFrame(() => {
+    if (mode === MODE.PHOTO) {
+      moveCamera();
+    }
+  });
 
   return (
     <>
