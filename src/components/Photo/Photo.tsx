@@ -21,6 +21,8 @@ const MODE = {
   PHOTO: false,
 };
 
+const isPhotoMode = (mode) => mode === MODE.PHOTO;
+
 const ORIGIN : Position = [0, 0, 0];
 
 const Photo = () => {
@@ -57,8 +59,6 @@ const Photo = () => {
     setCurPhoto({ position: circlePosArray[nextIndex], index: nextIndex, });
   };
 
-  const isPhotoMode = () => mode === MODE.PHOTO;
-
   useFrame(() => {
     if (mode === MODE.PHOTO) {
       zoomInToPhoto();
@@ -69,7 +69,7 @@ const Photo = () => {
 
   return (
     <>
-      {isPhotoMode() &&
+      {isPhotoMode(mode) &&
         <PhotoArrowKey
           x={curPhoto.position[0]}
           y={curPhoto.position[1]}
