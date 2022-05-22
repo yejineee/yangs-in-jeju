@@ -26,15 +26,19 @@ const Photo = () => {
   const [curPhoto, setCurPhoto] = useState({ position: [], index: null, });
   const state = useThree();
 
+  const setCameraLookat = (position: [number, number, number]) => {
+    state.camera.lookAt(...position);
+  };
+
   const zoomInToPhoto = () => {
     const [x, y, z] = curPhoto.position;
     state.camera.position.lerp(new Vector3(x, y, z + DISTANCE_FROM_PHOTO), 0.1);
-    state.camera.lookAt(...curPhoto.position);
+    setCameraLookat(curPhoto.position);
   };
 
   const zoomOutCamera = () => {
     state.camera.position.lerp(new Vector3(...cameraOption.position), 0.1);
-    state.camera.lookAt(...ORIGIN);
+    setCameraLookat(ORIGIN);
   };
 
   const onClickPhoto = (position, index) => {
