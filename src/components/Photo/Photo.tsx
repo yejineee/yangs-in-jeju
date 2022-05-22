@@ -5,6 +5,7 @@ import PhotoArrowKey from './PhotoArrowKey';
 import { useThree, useFrame } from '@react-three/fiber';
 import { Vector3 } from 'three';
 import { IMAGE_NAME } from '../../constants/image';
+import { cameraOption } from '../../routes/JejuAlbum/index';
 
 const PHOTO_COUNT = 10;
 const getNextPosIndex = (index: number) => (index + 1) % PHOTO_COUNT;
@@ -18,15 +19,22 @@ const MODE = {
   PHOTO: false,
 };
 
+const ORIGIN = [0, 0, 0];
+
 const Photo = () => {
   const [mode, setMode] = useState(MODE.ISLAND);
   const [curPhoto, setCurPhoto] = useState({ position: [], index: null, });
   const state = useThree();
 
-  const moveCamera = () => {
+  const zoomInToPhoto = () => {
     const [x, y, z] = curPhoto.position;
     state.camera.position.lerp(new Vector3(x, y, z + DISTANCE_FROM_PHOTO), 0.1);
     state.camera.lookAt(...curPhoto.position);
+  };
+
+  const zoomOutCamera = () => {
+    state.camera.position.lerp(new Vector3(...cameraOption.position), 0.1);
+    state.camera.lookAt(...ORIGIN);
   };
 
   const onClickPhoto = (position, index) => {
@@ -43,7 +51,9 @@ const Photo = () => {
 
   useFrame(() => {
     if (mode === MODE.PHOTO) {
-      moveCamera();
+      zoomInToPhoto();
+    } else {
+      zoomOutCamera();
     }
   });
 
