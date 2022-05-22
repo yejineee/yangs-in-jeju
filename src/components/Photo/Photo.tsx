@@ -7,6 +7,8 @@ import { Vector3 } from 'three';
 import { IMAGE_NAME } from '../../constants/image';
 import { cameraOption } from '../../routes/JejuAlbum/index';
 
+type Position = [number, number, number]
+
 const PHOTO_COUNT = 10;
 const getNextPosIndex = (index: number) => (index + 1) % PHOTO_COUNT;
 
@@ -19,25 +21,29 @@ const MODE = {
   PHOTO: false,
 };
 
-const ORIGIN = [0, 0, 0];
+const ORIGIN : Position = [0, 0, 0];
 
 const Photo = () => {
   const [mode, setMode] = useState(MODE.ISLAND);
   const [curPhoto, setCurPhoto] = useState({ position: [], index: null, });
   const state = useThree();
 
-  const setCameraLookat = (position: [number, number, number]) => {
-    state.camera.lookAt(...position);
+  const setCameraLookat = (position: Position) => {
+    state.camera.lookAt(new Vector3(...position));
+  };
+
+  const setCameraPostionWithLerp = (position: Position) => {
+    state.camera.position.lerp(new Vector3(...position), 0.1);
   };
 
   const zoomInToPhoto = () => {
     const [x, y, z] = curPhoto.position;
-    state.camera.position.lerp(new Vector3(x, y, z + DISTANCE_FROM_PHOTO), 0.1);
+    setCameraPostionWithLerp([x, y, z + DISTANCE_FROM_PHOTO]);
     setCameraLookat(curPhoto.position);
   };
 
   const zoomOutCamera = () => {
-    state.camera.position.lerp(new Vector3(...cameraOption.position), 0.1);
+    setCameraPostionWithLerp(cameraOption.position);
     setCameraLookat(ORIGIN);
   };
 
