@@ -5,7 +5,7 @@ import PhotoArrowKey from './PhotoArrowKey';
 import { useThree, useFrame } from '@react-three/fiber';
 import { Vector3 } from 'three';
 import { IMAGE_NAME } from '../../constants/image';
-import { cameraOption } from '../../routes/JejuAlbum/index';
+import { cameraOption } from '../../index';
 
 type Position = [number, number, number]
 
